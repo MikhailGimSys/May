@@ -186,6 +186,7 @@ namespace May.MAINWIn
 			ZayavSpisokShow();
 		}
 
+		// Поиск заявок по Статусу
 		private void FilterStatusChanged(object sender, EventArgs e)
 		{
 			var box = sender as ComboBox;
