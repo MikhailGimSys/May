@@ -1,14 +1,7 @@
-﻿using May.QDataSetTableAdapters;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.Entity.Migrations;
-using System.Drawing;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.Entity.Migrations;
 
 namespace May.MAINWIn.addwin
 {
@@ -19,39 +12,35 @@ namespace May.MAINWIn.addwin
             InitializeComponent();
             LoadComboBox();
             StartPosition = FormStartPosition.CenterScreen;
-
         }
+
 
         public int ID = 0;
 
         // Заполнение КомбоБоксов
         private void LoadComboBox()
         {
-            DIPLEntities2 context = new DIPLEntities2();
+            var dipl = new DIPLEntities2();
 
             // ComboBox Status
-            var status = context.StatusZaiavka.ToList();
-            comboBoxStatusZaiavka.DataSource = status;
+            comboBoxStatusZaiavka.DataSource = dipl.StatusZaiavka.ToList(); ;
             comboBoxStatusZaiavka.DisplayMember = "Name";
             comboBoxStatusZaiavka.ValueMember = "id";
 
-            // ComboBox Тип неисправности
-            comboBoxNeispravnost.DataSource = context.TypeNeispravnost.ToList();
+			// ComboBox Тип неисправности
+			comboBoxNeispravnost.DataSource = dipl.TypeNeispravnost.ToList();
             comboBoxNeispravnost.DisplayMember = "Name";
             comboBoxNeispravnost.ValueMember = "id";
 
             // ComboBox Сотрудники
-            comboBoxSotrudnik.DataSource = context.Sotrudnik.ToList();
+            comboBoxSotrudnik.DataSource = dipl.Sotrudnik.ToList();
             comboBoxSotrudnik.DisplayMember = "fio";
             comboBoxSotrudnik.ValueMember = "id";
 
-
             // ComboBox Клиенты
-            var client = context.Client.ToList();
-            comboBoxClient.DataSource = client;
+            comboBoxClient.DataSource = dipl.Client.ToList();
             comboBoxClient.DisplayMember = "fio";
             comboBoxClient.ValueMember= "id";
-
         }
 
 
@@ -71,7 +60,7 @@ namespace May.MAINWIn.addwin
             zayav.id = ID;
 
             // Поле дата
-            zayav.datedob = DateTime.Now;
+            zayav.datedob = dTPDat.Value;
 
             // Статус
             zayav.status_id = (int)comboBoxStatusZaiavka.SelectedValue;

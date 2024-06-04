@@ -18,13 +18,13 @@ namespace May
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            // Открытие окна авторизации
-            var avt = new authorization();
+			// Открытие окна авторизации
+			var avt = new authorization();
             Application.Run(avt);
 
             // Если авторизация успешная, открытие главного окна
             if(avt.Status == true)
                 Application.Run(new main());
         }
-    }
+	}
 }
