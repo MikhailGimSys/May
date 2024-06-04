@@ -1,0 +1,21 @@
+﻿################################################################################
+# Данный GITIGNORE-файл был автоматически создан Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/May
+/obj/Debug
+/packages
+/May.sln
+/May.csproj
+/packages.config
+/Model1.Context.cs
+/Model1.Context.tt
+/Model1.cs
+/Model1.Designer.cs
+/Model1.edmx
+/Model1.edmx.diagram
+/Model1.tt
+/QDataSet.xsc
+/QDataSet.xsd
+/QDataSet.xss
+/App.config
