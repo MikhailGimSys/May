@@ -39,7 +39,7 @@ namespace May.MAINWIn
 			dataGridView1.Columns.Add("", "№ Заявки");
 			dataGridView1.Columns.Add("", "Дата создания");
 			dataGridView1.Columns.Add("", "Клиент");
-			dataGridView1.Columns.Add("", "Тип неисправности");
+			dataGridView1.Columns.Add("", "Тип ошибки");
 			dataGridView1.Columns.Add("", "Статус");
 			dataGridView1.Columns.Add("", "Сотрудник");
 			dataGridView1.Columns.Add("", "Описание");
@@ -66,7 +66,7 @@ namespace May.MAINWIn
 			// Вывод данных в датагрид
 			foreach (var item in dipl.ZaiavkaNeispravnost)
 			{
-				// Филтрация по Фио
+				// Фильтрация по Фио
 				var fio = filter.fio.ToLower().Trim();
 				if (fio.Length > 0)
 					if (!item.Client.fio.ToLower().Contains(fio))
@@ -206,6 +206,7 @@ namespace May.MAINWIn
 			}
 			public static string fio { get; set; }
 			public static int status { get; set; }
+
 		}
 	}
 }
