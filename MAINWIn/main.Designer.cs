@@ -58,7 +58,7 @@
 			this.label20 = new System.Windows.Forms.Label();
 			this.SotrDataGrid = new System.Windows.Forms.DataGridView();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
-			this.dataGridView1 = new System.Windows.Forms.DataGridView();
+			this.ZayavDataGrid = new System.Windows.Forms.DataGridView();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
@@ -91,7 +91,7 @@
 			this.groupBox4.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.SotrDataGrid)).BeginInit();
 			this.tabPage1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.ZayavDataGrid)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			this.tabControl1.SuspendLayout();
 			this.tabPage4.SuspendLayout();
@@ -231,12 +231,14 @@
 			// 
 			// ClientDataGrid
 			// 
+			this.ClientDataGrid.AllowUserToAddRows = false;
 			this.ClientDataGrid.BackgroundColor = System.Drawing.SystemColors.Control;
 			this.ClientDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.ClientDataGrid.Location = new System.Drawing.Point(6, 86);
 			this.ClientDataGrid.Name = "ClientDataGrid";
 			this.ClientDataGrid.Size = new System.Drawing.Size(656, 336);
 			this.ClientDataGrid.TabIndex = 6;
+			this.ClientDataGrid.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.ColumnWidthSave);
 			// 
 			// tabPage2
 			// 
@@ -391,10 +393,11 @@
 			this.SotrDataGrid.ReadOnly = true;
 			this.SotrDataGrid.Size = new System.Drawing.Size(670, 419);
 			this.SotrDataGrid.TabIndex = 6;
+			this.SotrDataGrid.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.ColumnWidthSave);
 			// 
 			// tabPage1
 			// 
-			this.tabPage1.Controls.Add(this.dataGridView1);
+			this.tabPage1.Controls.Add(this.ZayavDataGrid);
 			this.tabPage1.Controls.Add(this.groupBox1);
 			this.tabPage1.Controls.Add(this.buttonAdd);
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -405,18 +408,19 @@
 			this.tabPage1.Text = "Заявки";
 			this.tabPage1.UseVisualStyleBackColor = true;
 			// 
-			// dataGridView1
+			// ZayavDataGrid
 			// 
-			this.dataGridView1.AllowUserToAddRows = false;
-			this.dataGridView1.AllowUserToDeleteRows = false;
-			this.dataGridView1.AllowUserToOrderColumns = true;
-			this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
-			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView1.Location = new System.Drawing.Point(6, 117);
-			this.dataGridView1.Name = "dataGridView1";
-			this.dataGridView1.ReadOnly = true;
-			this.dataGridView1.Size = new System.Drawing.Size(950, 286);
-			this.dataGridView1.TabIndex = 8;
+			this.ZayavDataGrid.AllowUserToAddRows = false;
+			this.ZayavDataGrid.AllowUserToDeleteRows = false;
+			this.ZayavDataGrid.AllowUserToOrderColumns = true;
+			this.ZayavDataGrid.BackgroundColor = System.Drawing.SystemColors.Control;
+			this.ZayavDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.ZayavDataGrid.Location = new System.Drawing.Point(6, 117);
+			this.ZayavDataGrid.Name = "ZayavDataGrid";
+			this.ZayavDataGrid.ReadOnly = true;
+			this.ZayavDataGrid.Size = new System.Drawing.Size(950, 286);
+			this.ZayavDataGrid.TabIndex = 8;
+			this.ZayavDataGrid.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.ColumnWidthSave);
 			// 
 			// groupBox1
 			// 
@@ -612,6 +616,7 @@
 			this.TypeDataGrid.ReadOnly = true;
 			this.TypeDataGrid.Size = new System.Drawing.Size(624, 407);
 			this.TypeDataGrid.TabIndex = 3;
+			this.TypeDataGrid.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.ColumnWidthSave);
 			// 
 			// label11
 			// 
@@ -668,7 +673,7 @@
 			this.groupBox4.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.SotrDataGrid)).EndInit();
 			this.tabPage1.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.ZayavDataGrid)).EndInit();
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			this.tabControl1.ResumeLayout(false);
@@ -690,7 +695,7 @@
         private System.Windows.Forms.Button SotrudnikAddBut;
         private System.Windows.Forms.DataGridView SotrDataGrid;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView ZayavDataGrid;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;

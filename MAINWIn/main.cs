@@ -5,6 +5,8 @@ using System.Drawing;
 using System.Windows.Forms;
 using May.MAINWIn.addwin;
 using System.Data.Entity.Migrations;
+using System.IO;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 namespace May.MAINWIn
 {
@@ -38,30 +40,71 @@ namespace May.MAINWIn
 			TypeSpisokShow();
 		}
 
+
+
+		// Изменение ширины колонок в ДатаГридах
+		private void ColumnWidthSave(object sender, DataGridViewColumnEventArgs e)
+		{
+			// Получение ДатаГрида, у которого были изменены колонки
+			var grid = sender as DataGridView;
+
+			int count = grid.Columns.Count;
+			string[] mass = new string[count];
+
+			// Сохранение всех ширин в массив
+			for (int i = 0; i < count; i++)
+				mass[i] = $"{grid.Columns[i].Width}";
+
+			// Сохранение данных в файл
+			var fileName = $"{grid.Name}.txt";
+			var txt = string.Join(" ", mass);
+			File.WriteAllText(fileName, txt);
+		}
+
+		// Установка ширины колонок в ДатаГридах
+		private void ColumnWidthSet(DataGridView grid)
+		{
+			var fileName = $"{grid.Name}.txt";
+
+			// Проверка, существует ли файл
+			if (!File.Exists(fileName))
+				return;
+
+			// Получение данных
+			var txt = File.ReadAllText(fileName);
+			string[] mass = txt.Split(' ');
+
+			// Установка ширины для колонок
+			for (int i = 0; i < grid.Columns.Count; i++)
+				grid.Columns[i].Width = Convert.ToInt32(mass[i]);
+		}
+
 		// Вывод заголовка для списка заявок
 		private void ZayavHeadersShow()
 		{
 			// Создание загововка таблицы 
-			dataGridView1.Columns.Add("", "№ Заявки");
-			dataGridView1.Columns.Add("", "Дата создания");
-			dataGridView1.Columns.Add("", "Клиент");
-			dataGridView1.Columns.Add("", "Тип ошибки");
-			dataGridView1.Columns.Add("", "Статус");
-			dataGridView1.Columns.Add("", "Сотрудник");
-			dataGridView1.Columns.Add("", "Описание");
-			dataGridView1.Columns.Add("Word", "");
-			dataGridView1.Columns.Add("Redact", "");
-			dataGridView1.Columns.Add("Del", "");
+			ZayavDataGrid.Columns.Add("", "№");
+			ZayavDataGrid.Columns.Add("", "Дата создания");
+			ZayavDataGrid.Columns.Add("", "Клиент");
+			ZayavDataGrid.Columns.Add("", "Тип ошибки");
+			ZayavDataGrid.Columns.Add("", "Статус");
+			ZayavDataGrid.Columns.Add("", "Сотрудник");
+			ZayavDataGrid.Columns.Add("", "Описание");
+			ZayavDataGrid.Columns.Add("Word", "");
+			ZayavDataGrid.Columns.Add("Redact", "");
+			ZayavDataGrid.Columns.Add("Del", "");
+
+			ColumnWidthSet(ZayavDataGrid);
 
 			// Привязка события клика мыши по ДатаГриду
-			dataGridView1.MouseClick += DataGridView1_MouseClick;
+			ZayavDataGrid.MouseClick += DataGridView1_MouseClick;
 		}
 
 		// Вывод списка заявок
 		private void ZayavSpisokShow()
 		{
 			// Предварительная очиска списка перед его очередным выводом
-			dataGridView1.Rows.Clear();
+			ZayavDataGrid.Rows.Clear();
 
 			// Получение списка заявок из базы
 			var dipl = new DIPLEntities2();
@@ -72,7 +115,7 @@ namespace May.MAINWIn
 				if (!Filter.Check(item))
 					continue;
 
-				int i = dataGridView1.Rows.Add
+				int i = ZayavDataGrid.Rows.Add
 					(item.id,
 					item.datedob,
 					item.Client.fio,
@@ -85,31 +128,30 @@ namespace May.MAINWIn
 					"Удалить");
 
 				// Форматирование ячейки Word
-				var cell = dataGridView1["Word", i];
+				var cell = ZayavDataGrid["Word", i];
 				cell.Style.ForeColor = Color.Blue;
 				cell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 				cell.Tag = item.id;
 
 				// Форматирование ячейки Redact
-				cell = dataGridView1["Redact", i];
+				cell = ZayavDataGrid["Redact", i];
 				cell.Style.ForeColor = Color.DarkOrange;
 				cell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 				cell.Tag = item.id;
 
 				// Форматирование ячейки Del
-				cell = dataGridView1["Del", i];
+				cell = ZayavDataGrid["Del", i];
 				cell.Style.ForeColor = Color.Red;
 				cell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 				cell.Tag = item.id;
 			}
 		}
 
-
 		// Нажатие на Датагрид (Word, Изменить, Удалить)
 		private void DataGridView1_MouseClick(object sender, MouseEventArgs e)
 		{
 			// Получение данных выбранной ячейки
-			var cell = dataGridView1.SelectedCells[0];
+			var cell = ZayavDataGrid.SelectedCells[0];
 
 			// Был выбрана ненужная ячейка
 			if (cell.Tag == null)
@@ -362,6 +404,8 @@ namespace May.MAINWIn
 			SotrDataGrid.Columns.Add("Redact", "");
 			SotrDataGrid.Columns.Add("Del", "");
 
+			ColumnWidthSet(SotrDataGrid);
+
 			// Привязка события клика мыши по ДатаГриду
 			SotrDataGrid.MouseClick += SotrDataGridClick;
 		}
@@ -419,6 +463,8 @@ namespace May.MAINWIn
 			ClientDataGrid.Columns.Add("", "E-mail");
 			ClientDataGrid.Columns.Add("Redact", "");
 			ClientDataGrid.Columns.Add("Del", "");
+
+			ColumnWidthSet(ClientDataGrid);
 		}
 
 		// Вывод списка Клиентов
@@ -467,6 +513,8 @@ namespace May.MAINWIn
 			//TypeDataGrid.Columns.Add("", "Описание");
 			TypeDataGrid.Columns.Add("Redact", "");
 			TypeDataGrid.Columns.Add("Del", "");
+
+			ColumnWidthSet(TypeDataGrid);
 		}
 
 		// Вывод списка Клиентов
