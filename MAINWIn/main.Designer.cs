@@ -41,22 +41,22 @@
 			this.textBox7 = new System.Windows.Forms.TextBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.dataGridView3 = new System.Windows.Forms.DataGridView();
+			this.ClientDataGrid = new System.Windows.Forms.DataGridView();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.groupBox5 = new System.Windows.Forms.GroupBox();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
-			this.textBox9 = new System.Windows.Forms.TextBox();
+			this.SotrPass = new System.Windows.Forms.TextBox();
 			this.label18 = new System.Windows.Forms.Label();
 			this.label17 = new System.Windows.Forms.Label();
-			this.textBox10 = new System.Windows.Forms.TextBox();
-			this.button1 = new System.Windows.Forms.Button();
-			this.comboBox1 = new System.Windows.Forms.ComboBox();
-			this.textBox11 = new System.Windows.Forms.TextBox();
+			this.SotrLogin = new System.Windows.Forms.TextBox();
+			this.SotrudnikAddBut = new System.Windows.Forms.Button();
+			this.SotrDoljnost = new System.Windows.Forms.ComboBox();
+			this.SotrFio = new System.Windows.Forms.TextBox();
 			this.label21 = new System.Windows.Forms.Label();
 			this.label19 = new System.Windows.Forms.Label();
-			this.maskedTextBox3 = new System.Windows.Forms.MaskedTextBox();
+			this.SotrPhone = new System.Windows.Forms.MaskedTextBox();
 			this.label20 = new System.Windows.Forms.Label();
-			this.dataGridView2 = new System.Windows.Forms.DataGridView();
+			this.SotrDataGrid = new System.Windows.Forms.DataGridView();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -77,7 +77,7 @@
 			this.label6 = new System.Windows.Forms.Label();
 			this.textBox4 = new System.Windows.Forms.TextBox();
 			this.button6 = new System.Windows.Forms.Button();
-			this.dataGridView4 = new System.Windows.Forms.DataGridView();
+			this.TypeDataGrid = new System.Windows.Forms.DataGridView();
 			this.label11 = new System.Windows.Forms.Label();
 			this.label7 = new System.Windows.Forms.Label();
 			this.textBox5 = new System.Windows.Forms.TextBox();
@@ -85,25 +85,25 @@
 			this.tabPage3.SuspendLayout();
 			this.groupBox6.SuspendLayout();
 			this.groupBox2.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.ClientDataGrid)).BeginInit();
 			this.tabPage2.SuspendLayout();
 			this.groupBox5.SuspendLayout();
 			this.groupBox4.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.SotrDataGrid)).BeginInit();
 			this.tabPage1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			this.tabControl1.SuspendLayout();
 			this.tabPage4.SuspendLayout();
 			this.groupBox3.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.TypeDataGrid)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// tabPage3
 			// 
 			this.tabPage3.Controls.Add(this.groupBox6);
 			this.tabPage3.Controls.Add(this.groupBox2);
-			this.tabPage3.Controls.Add(this.dataGridView3);
+			this.tabPage3.Controls.Add(this.ClientDataGrid);
 			this.tabPage3.Location = new System.Drawing.Point(4, 22);
 			this.tabPage3.Name = "tabPage3";
 			this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -229,19 +229,19 @@
 			this.textBox1.Size = new System.Drawing.Size(647, 42);
 			this.textBox1.TabIndex = 10;
 			// 
-			// dataGridView3
+			// ClientDataGrid
 			// 
-			this.dataGridView3.BackgroundColor = System.Drawing.SystemColors.Control;
-			this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView3.Location = new System.Drawing.Point(6, 86);
-			this.dataGridView3.Name = "dataGridView3";
-			this.dataGridView3.Size = new System.Drawing.Size(656, 336);
-			this.dataGridView3.TabIndex = 6;
+			this.ClientDataGrid.BackgroundColor = System.Drawing.SystemColors.Control;
+			this.ClientDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.ClientDataGrid.Location = new System.Drawing.Point(6, 86);
+			this.ClientDataGrid.Name = "ClientDataGrid";
+			this.ClientDataGrid.Size = new System.Drawing.Size(656, 336);
+			this.ClientDataGrid.TabIndex = 6;
 			// 
 			// tabPage2
 			// 
 			this.tabPage2.Controls.Add(this.groupBox5);
-			this.tabPage2.Controls.Add(this.dataGridView2);
+			this.tabPage2.Controls.Add(this.SotrDataGrid);
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -254,12 +254,12 @@
 			// 
 			this.groupBox5.BackColor = System.Drawing.SystemColors.ButtonHighlight;
 			this.groupBox5.Controls.Add(this.groupBox4);
-			this.groupBox5.Controls.Add(this.button1);
-			this.groupBox5.Controls.Add(this.comboBox1);
-			this.groupBox5.Controls.Add(this.textBox11);
+			this.groupBox5.Controls.Add(this.SotrudnikAddBut);
+			this.groupBox5.Controls.Add(this.SotrDoljnost);
+			this.groupBox5.Controls.Add(this.SotrFio);
 			this.groupBox5.Controls.Add(this.label21);
 			this.groupBox5.Controls.Add(this.label19);
-			this.groupBox5.Controls.Add(this.maskedTextBox3);
+			this.groupBox5.Controls.Add(this.SotrPhone);
 			this.groupBox5.Controls.Add(this.label20);
 			this.groupBox5.Location = new System.Drawing.Point(678, 6);
 			this.groupBox5.Name = "groupBox5";
@@ -270,10 +270,10 @@
 			// 
 			// groupBox4
 			// 
-			this.groupBox4.Controls.Add(this.textBox9);
+			this.groupBox4.Controls.Add(this.SotrPass);
 			this.groupBox4.Controls.Add(this.label18);
 			this.groupBox4.Controls.Add(this.label17);
-			this.groupBox4.Controls.Add(this.textBox10);
+			this.groupBox4.Controls.Add(this.SotrLogin);
 			this.groupBox4.Location = new System.Drawing.Point(13, 202);
 			this.groupBox4.Name = "groupBox4";
 			this.groupBox4.Size = new System.Drawing.Size(257, 122);
@@ -281,12 +281,12 @@
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Данные для входа";
 			// 
-			// textBox9
+			// SotrPass
 			// 
-			this.textBox9.Location = new System.Drawing.Point(6, 84);
-			this.textBox9.Name = "textBox9";
-			this.textBox9.Size = new System.Drawing.Size(229, 20);
-			this.textBox9.TabIndex = 19;
+			this.SotrPass.Location = new System.Drawing.Point(6, 84);
+			this.SotrPass.Name = "SotrPass";
+			this.SotrPass.Size = new System.Drawing.Size(229, 20);
+			this.SotrPass.TabIndex = 19;
 			// 
 			// label18
 			// 
@@ -306,39 +306,40 @@
 			this.label17.TabIndex = 18;
 			this.label17.Text = "Пароль";
 			// 
-			// textBox10
+			// SotrLogin
 			// 
-			this.textBox10.Location = new System.Drawing.Point(7, 45);
-			this.textBox10.Name = "textBox10";
-			this.textBox10.Size = new System.Drawing.Size(229, 20);
-			this.textBox10.TabIndex = 21;
+			this.SotrLogin.Location = new System.Drawing.Point(7, 45);
+			this.SotrLogin.Name = "SotrLogin";
+			this.SotrLogin.Size = new System.Drawing.Size(229, 20);
+			this.SotrLogin.TabIndex = 21;
 			// 
-			// button1
+			// SotrudnikAddBut
 			// 
-			this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(153)))));
-			this.button1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-			this.button1.Location = new System.Drawing.Point(63, 344);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(162, 55);
-			this.button1.TabIndex = 7;
-			this.button1.Text = "Добавить сотрудника";
-			this.button1.UseVisualStyleBackColor = false;
+			this.SotrudnikAddBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(153)))));
+			this.SotrudnikAddBut.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.SotrudnikAddBut.ForeColor = System.Drawing.SystemColors.ButtonFace;
+			this.SotrudnikAddBut.Location = new System.Drawing.Point(63, 344);
+			this.SotrudnikAddBut.Name = "SotrudnikAddBut";
+			this.SotrudnikAddBut.Size = new System.Drawing.Size(162, 55);
+			this.SotrudnikAddBut.TabIndex = 7;
+			this.SotrudnikAddBut.Text = "Добавить сотрудника";
+			this.SotrudnikAddBut.UseVisualStyleBackColor = false;
+			this.SotrudnikAddBut.Click += new System.EventHandler(this.SotrudnikAdd);
 			// 
-			// comboBox1
+			// SotrDoljnost
 			// 
-			this.comboBox1.FormattingEnabled = true;
-			this.comboBox1.Location = new System.Drawing.Point(16, 160);
-			this.comboBox1.Name = "comboBox1";
-			this.comboBox1.Size = new System.Drawing.Size(257, 21);
-			this.comboBox1.TabIndex = 22;
+			this.SotrDoljnost.FormattingEnabled = true;
+			this.SotrDoljnost.Location = new System.Drawing.Point(16, 160);
+			this.SotrDoljnost.Name = "SotrDoljnost";
+			this.SotrDoljnost.Size = new System.Drawing.Size(257, 21);
+			this.SotrDoljnost.TabIndex = 22;
 			// 
-			// textBox11
+			// SotrFio
 			// 
-			this.textBox11.Location = new System.Drawing.Point(16, 53);
-			this.textBox11.Name = "textBox11";
-			this.textBox11.Size = new System.Drawing.Size(257, 20);
-			this.textBox11.TabIndex = 13;
+			this.SotrFio.Location = new System.Drawing.Point(16, 53);
+			this.SotrFio.Name = "SotrFio";
+			this.SotrFio.Size = new System.Drawing.Size(257, 20);
+			this.SotrFio.TabIndex = 13;
 			// 
 			// label21
 			// 
@@ -360,13 +361,13 @@
 			this.label19.TabIndex = 17;
 			this.label19.Text = "Должность";
 			// 
-			// maskedTextBox3
+			// SotrPhone
 			// 
-			this.maskedTextBox3.Location = new System.Drawing.Point(16, 103);
-			this.maskedTextBox3.Mask = "000";
-			this.maskedTextBox3.Name = "maskedTextBox3";
-			this.maskedTextBox3.Size = new System.Drawing.Size(257, 20);
-			this.maskedTextBox3.TabIndex = 15;
+			this.SotrPhone.Location = new System.Drawing.Point(16, 103);
+			this.SotrPhone.Mask = "000";
+			this.SotrPhone.Name = "SotrPhone";
+			this.SotrPhone.Size = new System.Drawing.Size(257, 20);
+			this.SotrPhone.TabIndex = 15;
 			// 
 			// label20
 			// 
@@ -378,18 +379,18 @@
 			this.label20.TabIndex = 16;
 			this.label20.Text = "Внутренний номер";
 			// 
-			// dataGridView2
+			// SotrDataGrid
 			// 
-			this.dataGridView2.AllowUserToAddRows = false;
-			this.dataGridView2.AllowUserToDeleteRows = false;
-			this.dataGridView2.AllowUserToOrderColumns = true;
-			this.dataGridView2.BackgroundColor = System.Drawing.SystemColors.Control;
-			this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView2.Location = new System.Drawing.Point(3, 6);
-			this.dataGridView2.Name = "dataGridView2";
-			this.dataGridView2.ReadOnly = true;
-			this.dataGridView2.Size = new System.Drawing.Size(670, 419);
-			this.dataGridView2.TabIndex = 6;
+			this.SotrDataGrid.AllowUserToAddRows = false;
+			this.SotrDataGrid.AllowUserToDeleteRows = false;
+			this.SotrDataGrid.AllowUserToOrderColumns = true;
+			this.SotrDataGrid.BackgroundColor = System.Drawing.SystemColors.Control;
+			this.SotrDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.SotrDataGrid.Location = new System.Drawing.Point(3, 6);
+			this.SotrDataGrid.Name = "SotrDataGrid";
+			this.SotrDataGrid.ReadOnly = true;
+			this.SotrDataGrid.Size = new System.Drawing.Size(670, 419);
+			this.SotrDataGrid.TabIndex = 6;
 			// 
 			// tabPage1
 			// 
@@ -532,7 +533,7 @@
 			// 
 			this.tabPage4.Controls.Add(this.groupBox3);
 			this.tabPage4.Controls.Add(this.button6);
-			this.tabPage4.Controls.Add(this.dataGridView4);
+			this.tabPage4.Controls.Add(this.TypeDataGrid);
 			this.tabPage4.Location = new System.Drawing.Point(4, 22);
 			this.tabPage4.Name = "tabPage4";
 			this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
@@ -600,17 +601,17 @@
 			this.button6.Text = "Добавить";
 			this.button6.UseVisualStyleBackColor = false;
 			// 
-			// dataGridView4
+			// TypeDataGrid
 			// 
-			this.dataGridView4.AllowUserToAddRows = false;
-			this.dataGridView4.AllowUserToDeleteRows = false;
-			this.dataGridView4.BackgroundColor = System.Drawing.SystemColors.Control;
-			this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView4.Location = new System.Drawing.Point(15, 15);
-			this.dataGridView4.Name = "dataGridView4";
-			this.dataGridView4.ReadOnly = true;
-			this.dataGridView4.Size = new System.Drawing.Size(624, 407);
-			this.dataGridView4.TabIndex = 3;
+			this.TypeDataGrid.AllowUserToAddRows = false;
+			this.TypeDataGrid.AllowUserToDeleteRows = false;
+			this.TypeDataGrid.BackgroundColor = System.Drawing.SystemColors.Control;
+			this.TypeDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.TypeDataGrid.Location = new System.Drawing.Point(15, 15);
+			this.TypeDataGrid.Name = "TypeDataGrid";
+			this.TypeDataGrid.ReadOnly = true;
+			this.TypeDataGrid.Size = new System.Drawing.Size(624, 407);
+			this.TypeDataGrid.TabIndex = 3;
 			// 
 			// label11
 			// 
@@ -659,13 +660,13 @@
 			this.groupBox6.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.ClientDataGrid)).EndInit();
 			this.tabPage2.ResumeLayout(false);
 			this.groupBox5.ResumeLayout(false);
 			this.groupBox5.PerformLayout();
 			this.groupBox4.ResumeLayout(false);
 			this.groupBox4.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.SotrDataGrid)).EndInit();
 			this.tabPage1.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
 			this.groupBox1.ResumeLayout(false);
@@ -674,7 +675,7 @@
 			this.tabPage4.ResumeLayout(false);
 			this.groupBox3.ResumeLayout(false);
 			this.groupBox3.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.TypeDataGrid)).EndInit();
 			this.ResumeLayout(false);
 
         }
@@ -684,10 +685,10 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.DataGridView dataGridView3;
+        private System.Windows.Forms.DataGridView ClientDataGrid;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.Button SotrudnikAddBut;
+        private System.Windows.Forms.DataGridView SotrDataGrid;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -709,15 +710,15 @@
         private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.TextBox textBox9;
-        private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.TextBox SotrPass;
+        private System.Windows.Forms.TextBox SotrLogin;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox3;
+        private System.Windows.Forms.MaskedTextBox SotrPhone;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.TextBox textBox11;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TextBox SotrFio;
+        private System.Windows.Forms.ComboBox SotrDoljnost;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label label3;
@@ -729,7 +730,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.DataGridView dataGridView4;
+        private System.Windows.Forms.DataGridView TypeDataGrid;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBox5;
