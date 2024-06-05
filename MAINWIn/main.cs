@@ -4,7 +4,6 @@ using System.Linq;
 using System.Drawing;
 using System.Windows.Forms;
 using May.MAINWIn.addwin;
-using System.IO;
 
 namespace May.MAINWIn
 {
@@ -15,21 +14,9 @@ namespace May.MAINWIn
 			InitializeComponent();
 			StartPosition = FormStartPosition.CenterScreen;
 
-			new filter();
+			new Filter();
 			ZayavHeadersShow();
-			//ZayavSpisokShow();
-
-			// ComboBox FilterStatus
-			var dipl = new DIPLEntities2();
-			var list = dipl.StatusZaiavka.ToList();
-			// Вставка значения по умолчанию
-			var def = new StatusZaiavka();
-			def.id = 0;
-			def.name = "Любой статус";
-			list.Insert(0, def);
-			FilterStatus.DataSource = list;
-			FilterStatus.DisplayMember = "Name";
-			FilterStatus.ValueMember = "id";
+			FilterInit();
 		}
 
 		// Вывод заголовка для списка заявок
@@ -52,10 +39,9 @@ namespace May.MAINWIn
 		}
 
 		// Вывод списка заявок
-		void ZayavSpisokShow()
+		private void ZayavSpisokShow()
 		{
-			Console.WriteLine("ZSS");
-
+			Console.WriteLine("....");
 
 			// Предварительная очиска списка перед его очередным выводом
 			dataGridView1.Rows.Clear();
@@ -66,16 +52,8 @@ namespace May.MAINWIn
 			// Вывод данных в датагрид
 			foreach (var item in dipl.ZaiavkaNeispravnost)
 			{
-				// Фильтрация по Фио
-				var fio = filter.fio.ToLower().Trim();
-				if (fio.Length > 0)
-					if (!item.Client.fio.ToLower().Contains(fio))
-						continue;
-
-				// Фильтрация по статусу
-				if(filter.status > 0)
-					if(filter.status != item.StatusZaiavka.id)
-						continue;
+				if (!Filter.Check(item))
+					continue;
 
 				int i = dataGridView1.Rows.Add
 					(item.id,
@@ -108,6 +86,7 @@ namespace May.MAINWIn
 				cell.Tag = item.id;
 			}
 		}
+
 
 		// Нажатие на Датагрид (Word, Изменить, Удалить)
 		private void DataGridView1_MouseClick(object sender, MouseEventArgs e)
@@ -174,37 +153,111 @@ namespace May.MAINWIn
 		{
 			var add = new addzaiavka();
 			add.ShowDialog();
-			ZayavSpisokShow();
+			FilterClear();
 		}
 
 
 
-		// Поиск заявок по ФИО клиента
+		private void FilterInit()
+		{
+			// Заполнение данными ComboBox FilterStatus
+			var dipl = new DIPLEntities2();
+			var list = dipl.StatusZaiavka.ToList();
+			// Вставка значения по умолчанию
+			var def = new StatusZaiavka();
+			def.id = 0;
+			def.name = "Любой статус";
+			list.Insert(0, def);
+			FilterStatus.DataSource = list;
+			FilterStatus.DisplayMember = "Name";
+			FilterStatus.ValueMember = "id";
+
+
+			var MinDate = dipl.ZaiavkaNeispravnost.Min(x => x.datedob.Value);
+			var MaxDate = dipl.ZaiavkaNeispravnost.Max(x => x.datedob.Value);
+
+			FilterDateFrom.MinDate = MinDate;
+			FilterDateFrom.MaxDate = MaxDate;
+			FilterDateFrom.Value = MinDate;
+
+			FilterDateTo.MinDate = MinDate;
+			FilterDateTo.MaxDate = MaxDate;
+			FilterDateTo.Value = MaxDate;
+		}
+
+		// Ввод текста в фильтре "Поиск заявок по ФИО клиента"
 		private void FilterFioChanged(object sender, EventArgs e)
 		{
-			filter.fio = FilterFio.Text;
+			Filter.fio = FilterFio.Text;
 			ZayavSpisokShow();
 		}
 
-		// Поиск заявок по Статусу
+		// Ввод текста в фильтре "Поиск заявок по Статусу"
 		private void FilterStatusChanged(object sender, EventArgs e)
 		{
 			var box = sender as ComboBox;
 			var item = box.SelectedItem as StatusZaiavka;
-			filter.status = item.id;
+			Filter.status = item.id;
 			ZayavSpisokShow();
 		}
 
-		// Фильтр для списка Заявок на неисправности
-		class filter
+		// Очистка значений фильтра в полях и в классе
+		private void FilterClear()
+		{
+			FilterFio.Text = "";
+			FilterStatus.SelectedIndex = 0;
+
+			new Filter();
+		}
+
+		// Класс: фильтр для списка Заявок на неисправности
+		class Filter
 		{
 			// Очистка фильтра
-			public filter()
+			public Filter()
 			{
 				fio = "";
 				status = 0;
 			}
-			public static string fio { get; set; }
+
+			// Проверка записи по всем фильтрам
+			public static bool Check(ZaiavkaNeispravnost item)
+			{
+				if(!CheckFio(item))
+					return false;
+				if(!CheckStatus(item))
+					return false;
+
+				return true;
+			}
+
+			// Проверка по полю Фио клиента, сотдудника, ID заявки
+			static bool CheckFio(ZaiavkaNeispravnost item)
+			{
+				var txt = fio.ToLower().Trim();
+
+				if (txt.Length == 0)
+					return true;
+
+				if (!item.Client.fio.ToLower().Contains(txt))
+					if (!item.Sotrudnik.fio.ToLower().Contains(txt))
+						if (!item.opisanie.ToLower().Contains(txt))
+							if (item.id.ToString() != txt)
+								return false;
+
+				return true;
+			}
+
+			// Проверка по статусу
+			static bool CheckStatus(ZaiavkaNeispravnost item)
+			{
+				if (status == 0)
+					return true;
+
+				return status == item.StatusZaiavka.id;
+			}
+
+			public static string fio { get; set; } // Фио клиента, сотдудника, ID заявки
 			public static int status { get; set; }
 
 		}
