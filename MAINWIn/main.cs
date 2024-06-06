@@ -1,12 +1,11 @@
 ﻿using System;
+using System.IO;
 using System.Data;
 using System.Linq;
 using System.Drawing;
 using System.Windows.Forms;
-using May.MAINWIn.addwin;
 using System.Data.Entity.Migrations;
-using System.IO;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
+using May.MAINWIn.addwin;
 
 namespace May.MAINWIn
 {
@@ -79,6 +78,10 @@ namespace May.MAINWIn
 				grid.Columns[i].Width = Convert.ToInt32(mass[i]);
 		}
 
+
+
+		#region ЗАЯВКИ
+
 		// Вывод заголовка для списка заявок
 		private void ZayavHeadersShow()
 		{
@@ -94,6 +97,7 @@ namespace May.MAINWIn
 			ZayavDataGrid.Columns.Add("Redact", "");
 			ZayavDataGrid.Columns.Add("Del", "");
 
+			// Установка ширины для колонок
 			ColumnWidthSet(ZayavDataGrid);
 
 			// Привязка события клика мыши по ДатаГриду
@@ -115,15 +119,15 @@ namespace May.MAINWIn
 				if (!Filter.Check(item))
 					continue;
 
-				int i = ZayavDataGrid.Rows.Add
-					(item.id,
+				int i = ZayavDataGrid.Rows.Add (
+					item.id,
 					item.datedob,
 					item.Client.fio,
 					item.TypeNeispravnost.name,
 					item.StatusZaiavka.name,
 					item.Sotrudnik.fio,
 					item.opisanie,
-					"Word",
+					item.StatusZaiavka.id == 3 ? "Word" : "",
 					"Изменить",
 					"Удалить");
 
@@ -150,19 +154,23 @@ namespace May.MAINWIn
 		// Нажатие на Датагрид (Word, Изменить, Удалить)
 		private void DataGridView1_MouseClick(object sender, MouseEventArgs e)
 		{
-			// Получение данных выбранной ячейки
+			// Получение выбранной ячейки
 			var cell = ZayavDataGrid.SelectedCells[0];
 
 			// Был выбрана ненужная ячейка
 			if (cell.Tag == null)
 				return;
 
+			// Получение ID для редактирования или удаления
 			int id = (int)cell.Tag;
+			// Подключение к Базе
 			var dipl = new DIPLEntities2();
+			// Получение данных записи
 			var zayav = dipl.ZaiavkaNeispravnost.Where(x => x.id == id).ToList()[0];
 
 			switch (cell.Value.ToString())
 			{
+				// Вывод Акта в формате Ворд
 				case "Word":
 					MessageBox.Show("Нажали на Word");
 					break;
@@ -215,7 +223,7 @@ namespace May.MAINWIn
 			FilterClear();
 		}
 
-
+		#endregion
 
 		#region ФИЛЬТР ЗАЯВОК
 
@@ -249,7 +257,7 @@ namespace May.MAINWIn
 		// Ввод текста в фильтре "Поиск заявок по ФИО клиента"
 		private void FilterFioChanged(object sender, EventArgs e)
 		{
-			Filter.fio = FilterFio.Text;
+			Filter.fio = FilterFio.Text.ToLower().Trim();
 			ZayavSpisokShow();
 		}
 
@@ -271,7 +279,7 @@ namespace May.MAINWIn
 			new Filter();
 		}
 
-		// Класс: фильтр для списка Заявок на неисправности
+		// Класс: фильтр для списка Заявок на неисправности, хранящий состояния полей фильтра
 		class Filter
 		{
 			// Очистка фильтра
@@ -279,6 +287,8 @@ namespace May.MAINWIn
 			{
 				fio = "";
 				status = 0;
+
+				clientTxt = "";
 			}
 
 			// Проверка записи по всем фильтрам
@@ -295,15 +305,13 @@ namespace May.MAINWIn
 			// Проверка по полю Фио клиента, сотдудника, ID заявки
 			static bool CheckFio(ZaiavkaNeispravnost item)
 			{
-				var txt = fio.ToLower().Trim();
-
-				if (txt.Length == 0)
+				if (fio.Length == 0)
 					return true;
 
-				if (!item.Client.fio.ToLower().Contains(txt))
-					if (!item.Sotrudnik.fio.ToLower().Contains(txt))
-						if (!item.opisanie.ToLower().Contains(txt))
-							if (item.id.ToString() != txt)
+				if (!item.Client.fio.ToLower().Contains(fio))
+					if (!item.Sotrudnik.fio.ToLower().Contains(fio))
+						if (!item.opisanie.ToLower().Contains(fio))
+							if (item.id.ToString() != fio)
 								return false;
 
 				return true;
@@ -318,11 +326,16 @@ namespace May.MAINWIn
 				return status == item.StatusZaiavka.id;
 			}
 
-			public static string fio { get; set; } // Фио клиента, сотдудника, ID заявки
-			public static int status { get; set; }
+			public static string fio { get; set; } // Фио клиента, сотрудника, ID заявки
+			public static int status { get; set; } // Статус
 
+
+
+
+
+			// СПИСОК КЛИЕНТОВ
+			public static string clientTxt { get; set; } // поиск по Фио, ИНН, номеру телефона, емаилу
 		}
-
 
 		#endregion
 
@@ -388,10 +401,13 @@ namespace May.MAINWIn
 
 
 			// Очистка полей после успешного добавления
-			SotrFio.Text = "";
+			SotrFio.Text   = "";
 			SotrPhone.Text = "";
 			SotrLogin.Text = "";
-			SotrPass.Text = "";
+			SotrPass.Text  = "";
+
+			// Обновление списка сотрудников
+			SotrudnikSpisokShow();
 		}
 
 		// Вывод заголовка списка сотрудников
@@ -404,6 +420,7 @@ namespace May.MAINWIn
 			SotrDataGrid.Columns.Add("Redact", "");
 			SotrDataGrid.Columns.Add("Del", "");
 
+			// Установка ширины для колонок
 			ColumnWidthSet(SotrDataGrid);
 
 			// Привязка события клика мыши по ДатаГриду
@@ -413,7 +430,50 @@ namespace May.MAINWIn
 		// Нажатие на Датагрид Сотрудников (Изменить, Удалить)
 		private void SotrDataGridClick(object sender, MouseEventArgs e)
 		{
+			// Получение выбранной ячейки
+			var cell = SotrDataGrid.SelectedCells[0];
 
+			// Был выбрана ненужная ячейка
+			if (cell.Tag == null)
+				return;
+
+			// Получение ID для редактирования или удаления
+			int id = (int)cell.Tag;
+			// Подключение к Базе
+			var dipl = new DIPLEntities2();
+			// Получение данных записи
+			var item = dipl.Sotrudnik.Where(x => x.id == id).ToList()[0];
+
+			switch (cell.Value.ToString())
+			{
+				// Редактирование данных заявки
+				case "Изменить":
+
+					SotrudnikSpisokShow();
+					break;
+
+				// Удаление заявки
+				case "Удалить":
+					var use = dipl.ZaiavkaNeispravnost.Where(x => x.sotrudnik_id == id).Count();
+					if (use > 0)
+					{
+						MessageBox.Show("Невозможно удалить сотрудника, так как он используется в заявках.");
+						break;
+					}
+
+					var result = MessageBox.Show(
+						"Вы действтельно хотите удалить запись?",
+						"Удаление записи",
+						MessageBoxButtons.YesNo);
+
+					if (result == DialogResult.Yes)
+					{
+						dipl.Sotrudnik.Remove(item);
+						dipl.SaveChanges();
+						SotrudnikSpisokShow();
+					}
+					break;
+			}
 		}
 
 		// Вывод списка Сотрудников
@@ -464,7 +524,60 @@ namespace May.MAINWIn
 			ClientDataGrid.Columns.Add("Redact", "");
 			ClientDataGrid.Columns.Add("Del", "");
 
+			// Установка ширины для колонок
 			ColumnWidthSet(ClientDataGrid);
+
+			// Привязка события клика мыши по ДатаГриду
+			ClientDataGrid.MouseClick += ClientDataGridClick;
+		}
+
+		// Нажатие на Датагрид Сотрудников (Изменить, Удалить)
+		private void ClientDataGridClick(object sender, MouseEventArgs e)
+		{
+			// Получение выбранной ячейки
+			var cell = ClientDataGrid.SelectedCells[0];
+
+			// Был выбрана ненужная ячейка
+			if (cell.Tag == null)
+				return;
+
+			// Получение ID для редактирования или удаления
+			int id = (int)cell.Tag;
+			// Подключение к Базе
+			var dipl = new DIPLEntities2();
+			// Получение данных записи
+			var item = dipl.Client.Where(x => x.id == id).ToList()[0];
+
+			switch (cell.Value.ToString())
+			{
+				// Редактирование данных клиента
+				case "Изменить":
+
+					ClientSpisokShow();
+					break;
+
+				// Удаление клиента
+				case "Удалить":
+					var use = dipl.ZaiavkaNeispravnost.Where(x => x.client_id == id).Count();
+					if(use > 0)
+					{
+						MessageBox.Show("Невозможно удалить клиента, так как он используется в заявках.");
+						break;
+					}
+
+					var result = MessageBox.Show(
+						"Вы действтельно хотите удалить запись?",
+						"Удаление записи",
+						MessageBoxButtons.YesNo);
+
+					if (result == DialogResult.Yes)
+					{
+						dipl.Client.Remove(item);
+						dipl.SaveChanges();
+						ClientSpisokShow();
+					}
+					break;
+			}
 		}
 
 		// Вывод списка Клиентов
@@ -479,6 +592,14 @@ namespace May.MAINWIn
 			// Вывод данных в датагрид
 			foreach (var item in dipl.Client)
 			{
+				// Фильрование списка на основании поиска
+				if (Filter.clientTxt.Length > 0)
+					if (!item.fio.ToLower().Contains(Filter.clientTxt))
+						if (!item.inn.ToLower().Contains(Filter.clientTxt))
+							if (!item.phone.ToLower().Contains(Filter.clientTxt))
+								if (!item.email.ToLower().Contains(Filter.clientTxt))
+									continue;
+
 				int i = ClientDataGrid.Rows.Add(
 					item.fio,
 					item.inn,
@@ -501,20 +622,79 @@ namespace May.MAINWIn
 			}
 		}
 
+		// Ввод текста в фильтре поиска клиентов
+		private void ClientFilterTxtChanged(object sender, EventArgs e)
+		{
+			Filter.clientTxt = ClientFilterTxt.Text.ToLower().Trim();
+			ClientSpisokShow();
+		}
+
 		#endregion
 
 		#region ТИПЫ ОШИБОК
 
-		// Вывод заголовка списка Клиентов
+		// Вывод заголовка списка Типов ошибок
 		private void TypeHeadersShow()
 		{
 			// Создание загововка таблицы 
 			TypeDataGrid.Columns.Add("", "Название");
-			//TypeDataGrid.Columns.Add("", "Описание");
 			TypeDataGrid.Columns.Add("Redact", "");
 			TypeDataGrid.Columns.Add("Del", "");
 
+			// Установка ширины для колонок
 			ColumnWidthSet(TypeDataGrid);
+
+			// Привязка события клика мыши по ДатаГриду
+			TypeDataGrid.MouseClick += TypeDataGridClick;
+		}
+
+		// Нажатие на Датагрид Типов ошибок (Изменить, Удалить)
+		private void TypeDataGridClick(object sender, MouseEventArgs e)
+		{
+			// Получение выбранной ячейки
+			var cell = TypeDataGrid.SelectedCells[0];
+
+			// Был выбрана ненужная ячейка
+			if (cell.Tag == null)
+				return;
+
+			// Получение ID для редактирования или удаления
+			int id = (int)cell.Tag;
+			// Подключение к Базе
+			var dipl = new DIPLEntities2();
+			// Получение данных записи
+			var item = dipl.TypeNeispravnost.Where(x => x.id == id).ToList()[0];
+
+			switch (cell.Value.ToString())
+			{
+				// Редактирование данных Типа ошибок
+				case "Изменить":
+
+					TypeSpisokShow();
+					break;
+
+				// Удаление Типа ошибок
+				case "Удалить":
+					var use = dipl.ZaiavkaNeispravnost.Where(x => x.neispravost_id == id).Count();
+					if (use > 0)
+					{
+						MessageBox.Show("Невозможно удалить запись, так как она используется в заявках.");
+						break;
+					}
+
+					var result = MessageBox.Show(
+						"Вы действтельно хотите удалить запись?",
+						"Удаление записи",
+						MessageBoxButtons.YesNo);
+
+					if (result == DialogResult.Yes)
+					{
+						dipl.TypeNeispravnost.Remove(item);
+						dipl.SaveChanges();
+						TypeSpisokShow();
+					}
+					break;
+			}
 		}
 
 		// Вывод списка Клиентов
@@ -531,7 +711,6 @@ namespace May.MAINWIn
 			{
 				int i = TypeDataGrid.Rows.Add(
 					item.name,
-					//item.,
 					"Изменить",
 					"Удалить");
 

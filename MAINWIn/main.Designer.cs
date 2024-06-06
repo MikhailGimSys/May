@@ -40,7 +40,7 @@
 			this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
 			this.textBox7 = new System.Windows.Forms.TextBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
-			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.ClientFilterTxt = new System.Windows.Forms.TextBox();
 			this.ClientDataGrid = new System.Windows.Forms.DataGridView();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -213,7 +213,7 @@
 			// 
 			// groupBox2
 			// 
-			this.groupBox2.Controls.Add(this.textBox1);
+			this.groupBox2.Controls.Add(this.ClientFilterTxt);
 			this.groupBox2.Location = new System.Drawing.Point(6, 6);
 			this.groupBox2.Name = "groupBox2";
 			this.groupBox2.Size = new System.Drawing.Size(950, 73);
@@ -221,13 +221,14 @@
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Поиск по: ФИО, ИНН, Номеру телефона, E-mail";
 			// 
-			// textBox1
+			// ClientFilterTxt
 			// 
-			this.textBox1.Location = new System.Drawing.Point(9, 17);
-			this.textBox1.Multiline = true;
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(647, 42);
-			this.textBox1.TabIndex = 10;
+			this.ClientFilterTxt.Location = new System.Drawing.Point(9, 17);
+			this.ClientFilterTxt.Multiline = true;
+			this.ClientFilterTxt.Name = "ClientFilterTxt";
+			this.ClientFilterTxt.Size = new System.Drawing.Size(647, 42);
+			this.ClientFilterTxt.TabIndex = 10;
+			this.ClientFilterTxt.TextChanged += new System.EventHandler(this.ClientFilterTxtChanged);
 			// 
 			// ClientDataGrid
 			// 
@@ -688,7 +689,7 @@
         #endregion
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox ClientFilterTxt;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.DataGridView ClientDataGrid;
         private System.Windows.Forms.TabPage tabPage2;
