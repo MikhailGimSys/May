@@ -3,9 +3,13 @@ using System.IO;
 using System.Data;
 using System.Linq;
 using System.Drawing;
+using System.Diagnostics;
 using System.Windows.Forms;
 using System.Data.Entity.Migrations;
+
 using May.MAINWIn.addwin;
+//using Microsoft.Office.Interop.Word;
+//using Word = Microsoft.Office.Interop.Word;
 
 namespace May.MAINWIn
 {
@@ -172,7 +176,16 @@ namespace May.MAINWIn
 			{
 				// Вывод Акта в формате Ворд
 				case "Word":
-					MessageBox.Show("Нажали на Word");
+					// Файл-щаблон
+					var tmpFile = $"{Environment.CurrentDirectory}\\Resources\\act.tmp.docx";
+					//Console.WriteLine(tmpFile);
+					//var word = new Word.Application();
+					//_Document doc = word.Documents.Add(tmpFile);
+					//doc.Bookmarks["{NOMER}"].Range.Text = "123";
+					//doc.SaveAs(@"Resources\act.docx");
+					//doc.Close();
+
+					Process.Start(tmpFile);
 					break;
 
 				// Редактирование данных заявки
@@ -341,12 +354,15 @@ namespace May.MAINWIn
 
 		#region СОТРУДНИКИ
 
+		// Идентификатор сотрудника для редактирования
+		int SotrudnikId = 0;
+
 		// Нажатие на кнопку "Добавить сотрудника"
-		private void SotrudnikAdd(object sender, EventArgs e)
+		private void SotrudnikSave(object sender, EventArgs e)
 		{
 			var item = new Sotrudnik();
 
-			item.id = 0;
+			item.id = SotrudnikId;
 			
 			// ФИО
 			item.fio = SotrFio.Text.Trim();
@@ -361,7 +377,6 @@ namespace May.MAINWIn
 			if (item.phone.Length == 0)
 			{
 				MessageBox.Show("Не указан Внутренний телефон");
-				SotrPhone.Focus();
 				return;
 			}
 
@@ -396,18 +411,31 @@ namespace May.MAINWIn
 			// Сохранение изменений в базе
 			dipl.SaveChanges();
 
-			MessageBox.Show("Новый сотрудник успешно добавлен!");
+			MessageBox.Show(SotrudnikId == 0 ? "Новый сотрудник успешно добавлен!" : "Данные сохранены");
 
 
 
 			// Очистка полей после успешного добавления
-			SotrFio.Text   = "";
-			SotrPhone.Text = "";
-			SotrLogin.Text = "";
-			SotrPass.Text  = "";
+			SotrClear();
 
 			// Обновление списка сотрудников
 			SotrudnikSpisokShow();
+		}
+
+		// Отмена редактирования данных сотрудника и очистка полей
+		private void SotrClear(object sender, EventArgs e) =>
+			SotrClear();
+		private void SotrClear()
+		{
+			SotrFio.Text = "";
+			SotrPhone.Text = "";
+			SotrLogin.Text = "";
+			SotrPass.Text = "";
+
+			SotrudnikId = 0;
+			SotrSaveBox.Text = "Добавление сотрудника";
+			SotrCancelBut.Visible = false;
+			SotrudnikSaveBut.Text = "Добавить сотрудника";
 		}
 
 		// Вывод заголовка списка сотрудников
@@ -438,23 +466,30 @@ namespace May.MAINWIn
 				return;
 
 			// Получение ID для редактирования или удаления
-			int id = (int)cell.Tag;
+			SotrudnikId = (int)cell.Tag;
 			// Подключение к Базе
 			var dipl = new DIPLEntities2();
 			// Получение данных записи
-			var item = dipl.Sotrudnik.Where(x => x.id == id).ToList()[0];
+			var item = dipl.Sotrudnik.Where(x => x.id == SotrudnikId).ToList()[0];
 
 			switch (cell.Value.ToString())
 			{
-				// Редактирование данных заявки
+				// Редактирование данных сотрудника
 				case "Изменить":
+					SotrFio.Text = item.fio;
+					SotrPhone.Text = item.phone;
+					SotrDoljnost.SelectedValue = item.doljnost_id;
+					SotrLogin.Text = item.login;
+					SotrPass.Text = item.password;
 
-					SotrudnikSpisokShow();
+					SotrSaveBox.Text = "Изменение данных сотрудника";
+					SotrCancelBut.Visible = true;
+					SotrudnikSaveBut.Text = "Сохранить";
 					break;
 
-				// Удаление заявки
+				// Удаление сотрудника
 				case "Удалить":
-					var use = dipl.ZaiavkaNeispravnost.Where(x => x.sotrudnik_id == id).Count();
+					var use = dipl.ZaiavkaNeispravnost.Where(x => x.sotrudnik_id == SotrudnikId).Count();
 					if (use > 0)
 					{
 						MessageBox.Show("Невозможно удалить сотрудника, так как он используется в заявках.");
@@ -466,12 +501,14 @@ namespace May.MAINWIn
 						"Удаление записи",
 						MessageBoxButtons.YesNo);
 
-					if (result == DialogResult.Yes)
-					{
-						dipl.Sotrudnik.Remove(item);
-						dipl.SaveChanges();
-						SotrudnikSpisokShow();
-					}
+					if (result != DialogResult.Yes)
+						break;
+
+					dipl.Sotrudnik.Remove(item);
+					dipl.SaveChanges();
+					SotrudnikId = 0;
+					SotrudnikSpisokShow();
+
 					break;
 			}
 		}
@@ -513,6 +550,9 @@ namespace May.MAINWIn
 
 		#region КЛИЕНТЫ
 
+		// Идентификатор сотрудника для редактирования
+		int ClientId = 0;
+
 		// Вывод заголовка списка Клиентов
 		private void ClientHeadersShow()
 		{
@@ -542,24 +582,30 @@ namespace May.MAINWIn
 				return;
 
 			// Получение ID для редактирования или удаления
-			int id = (int)cell.Tag;
+			ClientId = (int)cell.Tag;
 			// Подключение к Базе
 			var dipl = new DIPLEntities2();
 			// Получение данных записи
-			var item = dipl.Client.Where(x => x.id == id).ToList()[0];
+			var item = dipl.Client.Where(x => x.id == ClientId).ToList()[0];
 
 			switch (cell.Value.ToString())
 			{
 				// Редактирование данных клиента
 				case "Изменить":
+					ClientFio.Text = item.fio;
+					ClientINN.Text = item.inn;
+					ClientPhone.Text = item.phone;
+					ClientEmail.Text = item.email;
 
-					ClientSpisokShow();
+					ClientSaveBox.Text = "Редактирование клиента";
+					ClientCancelBut.Visible = true;
+					ClientSaveBut.Text = "Сохранить";
 					break;
 
 				// Удаление клиента
 				case "Удалить":
-					var use = dipl.ZaiavkaNeispravnost.Where(x => x.client_id == id).Count();
-					if(use > 0)
+					var use = dipl.ZaiavkaNeispravnost.Where(x => x.client_id == ClientId).Count();
+					if (use > 0)
 					{
 						MessageBox.Show("Невозможно удалить клиента, так как он используется в заявках.");
 						break;
@@ -570,12 +616,13 @@ namespace May.MAINWIn
 						"Удаление записи",
 						MessageBoxButtons.YesNo);
 
-					if (result == DialogResult.Yes)
-					{
-						dipl.Client.Remove(item);
-						dipl.SaveChanges();
-						ClientSpisokShow();
-					}
+					if (result != DialogResult.Yes)
+						break;
+
+					dipl.Client.Remove(item);
+					dipl.SaveChanges();
+					ClientId = 0;
+					ClientSpisokShow();
 					break;
 			}
 		}
@@ -629,9 +676,88 @@ namespace May.MAINWIn
 			ClientSpisokShow();
 		}
 
+		// Внесение или сохранение данных клиента
+		private void ClientSave(object sender, EventArgs e)
+		{
+			var item = new Client();
+
+			item.id = ClientId;
+
+			// ФИО
+			item.fio = ClientFio.Text.Trim();
+			if (item.fio.Length == 0)
+			{
+				MessageBox.Show("Не указаны ФИО");
+				return;
+			}
+
+			// ИНН
+			item.inn = ClientINN.Text.Trim();
+			if (item.inn.Length == 0)
+			{
+				MessageBox.Show("Не указан ИНН");
+				return;
+			}
+
+			// Tелефон
+			item.phone = ClientPhone.Text.Trim();
+			if (item.phone.Length == 0)
+			{
+				MessageBox.Show("Не указан телефон");
+				return;
+			}
+
+			// Email
+			item.email = ClientEmail.Text.Trim();
+			if (item.email.Length == 0)
+			{
+				MessageBox.Show("Не указан email");
+				return;
+			}
+
+
+
+
+			// Подключение к базе
+			var dipl = new DIPLEntities2();
+
+			// Внесение данных Клиента в базу (или изменение)
+			dipl.Client.AddOrUpdate(item);
+
+			// Сохранение изменений в базе
+			dipl.SaveChanges();
+
+			MessageBox.Show(ClientId == 0 ? "Новый клиент успешно добавлен!" : "Данные сохранены");
+
+
+			// Очистка полей
+			ClientClear();
+
+			// Обновление списка
+			ClientSpisokShow();
+		}
+
+		// Отмена редактирования клиента и очистка полей
+		private void ClientClear(object sender, EventArgs e) => ClientClear();
+		private void ClientClear()
+		{
+			ClientSaveBox.Text = "Добавление клиента";
+			ClientCancelBut.Visible = false;
+			ClientSaveBut.Text = "Добавить клиента";
+
+			ClientId = 0;
+			ClientFio.Text = "";
+			ClientINN.Text = "";
+			ClientPhone.Text = "";
+			ClientEmail.Text = "";
+		}
+
 		#endregion
 
 		#region ТИПЫ ОШИБОК
+
+		// Идентификатор ошибки при редактировании
+		int TypeId = 0;
 
 		// Вывод заголовка списка Типов ошибок
 		private void TypeHeadersShow()
@@ -659,23 +785,25 @@ namespace May.MAINWIn
 				return;
 
 			// Получение ID для редактирования или удаления
-			int id = (int)cell.Tag;
+			TypeId = (int)cell.Tag;
 			// Подключение к Базе
 			var dipl = new DIPLEntities2();
 			// Получение данных записи
-			var item = dipl.TypeNeispravnost.Where(x => x.id == id).ToList()[0];
+			var item = dipl.TypeNeispravnost.Where(x => x.id == TypeId).ToList()[0];
 
 			switch (cell.Value.ToString())
 			{
 				// Редактирование данных Типа ошибок
 				case "Изменить":
-
-					TypeSpisokShow();
+					TypeName.Text = item.name;
+					TypeBox.Text = "Редактирование типа ошибки";
+					TypeSaveBut.Text = "Сохранить";
+					TypeCancelBut.Visible = true;
 					break;
 
 				// Удаление Типа ошибок
 				case "Удалить":
-					var use = dipl.ZaiavkaNeispravnost.Where(x => x.neispravost_id == id).Count();
+					var use = dipl.ZaiavkaNeispravnost.Where(x => x.neispravost_id == TypeId).Count();
 					if (use > 0)
 					{
 						MessageBox.Show("Невозможно удалить запись, так как она используется в заявках.");
@@ -691,10 +819,57 @@ namespace May.MAINWIn
 					{
 						dipl.TypeNeispravnost.Remove(item);
 						dipl.SaveChanges();
+						TypeId = 0;
 						TypeSpisokShow();
 					}
 					break;
 			}
+		}
+
+		// Нажатие на кнопку Сохранить
+		private void TypeSave(object sender, EventArgs e)
+		{
+			var item = new TypeNeispravnost();
+
+			item.id = TypeId;
+
+			// Название
+			item.name = TypeName.Text.Trim();
+			if (item.name.Length == 0)
+			{
+				MessageBox.Show("Не указано Название");
+				return;
+			}
+
+
+			// Подключение к базе
+			var dipl = new DIPLEntities2();
+
+			// Внесение данных Клиента в базу (или изменение)
+			dipl.TypeNeispravnost.AddOrUpdate(item);
+
+			// Сохранение изменений в базе
+			dipl.SaveChanges();
+
+			MessageBox.Show(TypeId == 0 ? "Новый тип ошибки успешно добавлен!" : "Данные сохранены");
+
+
+			// Очистка полей
+			TypeClear();
+
+			// Обновление списка сотрудников
+			TypeSpisokShow();
+		}
+
+		// Очистка полей
+		private void TypeClear(object sender, EventArgs e) => TypeClear();
+		private void TypeClear()
+		{
+			TypeId = 0;
+			TypeName.Text = "";
+			TypeBox.Text = "Добавление типа ошибки";
+			TypeSaveBut.Text = "Добавить";
+			TypeCancelBut.Visible = false;
 		}
 
 		// Вывод списка Клиентов

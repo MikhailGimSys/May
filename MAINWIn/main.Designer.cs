@@ -29,27 +29,29 @@
         private void InitializeComponent()
         {
 			this.tabPage3 = new System.Windows.Forms.TabPage();
-			this.groupBox6 = new System.Windows.Forms.GroupBox();
-			this.textBox8 = new System.Windows.Forms.TextBox();
-			this.button2 = new System.Windows.Forms.Button();
+			this.ClientSaveBox = new System.Windows.Forms.GroupBox();
+			this.ClientCancelBut = new System.Windows.Forms.Button();
+			this.ClientINN = new System.Windows.Forms.TextBox();
+			this.ClientSaveBut = new System.Windows.Forms.Button();
 			this.label12 = new System.Windows.Forms.Label();
 			this.label15 = new System.Windows.Forms.Label();
-			this.textBox6 = new System.Windows.Forms.TextBox();
+			this.ClientEmail = new System.Windows.Forms.TextBox();
 			this.label14 = new System.Windows.Forms.Label();
 			this.label13 = new System.Windows.Forms.Label();
-			this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
-			this.textBox7 = new System.Windows.Forms.TextBox();
+			this.ClientPhone = new System.Windows.Forms.MaskedTextBox();
+			this.ClientFio = new System.Windows.Forms.TextBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.ClientFilterTxt = new System.Windows.Forms.TextBox();
 			this.ClientDataGrid = new System.Windows.Forms.DataGridView();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
-			this.groupBox5 = new System.Windows.Forms.GroupBox();
+			this.SotrSaveBox = new System.Windows.Forms.GroupBox();
+			this.SotrCancelBut = new System.Windows.Forms.Button();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
 			this.SotrPass = new System.Windows.Forms.TextBox();
 			this.label18 = new System.Windows.Forms.Label();
 			this.label17 = new System.Windows.Forms.Label();
 			this.SotrLogin = new System.Windows.Forms.TextBox();
-			this.SotrudnikAddBut = new System.Windows.Forms.Button();
+			this.SotrudnikSaveBut = new System.Windows.Forms.Button();
 			this.SotrDoljnost = new System.Windows.Forms.ComboBox();
 			this.SotrFio = new System.Windows.Forms.TextBox();
 			this.label21 = new System.Windows.Forms.Label();
@@ -71,23 +73,24 @@
 			this.buttonAdd = new System.Windows.Forms.Button();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
-			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.TypeBox = new System.Windows.Forms.GroupBox();
 			this.textBox3 = new System.Windows.Forms.TextBox();
 			this.label4 = new System.Windows.Forms.Label();
 			this.label6 = new System.Windows.Forms.Label();
-			this.textBox4 = new System.Windows.Forms.TextBox();
-			this.button6 = new System.Windows.Forms.Button();
+			this.TypeName = new System.Windows.Forms.TextBox();
+			this.TypeSaveBut = new System.Windows.Forms.Button();
 			this.TypeDataGrid = new System.Windows.Forms.DataGridView();
 			this.label11 = new System.Windows.Forms.Label();
 			this.label7 = new System.Windows.Forms.Label();
 			this.textBox5 = new System.Windows.Forms.TextBox();
 			this.textBox2 = new System.Windows.Forms.TextBox();
+			this.TypeCancelBut = new System.Windows.Forms.Button();
 			this.tabPage3.SuspendLayout();
-			this.groupBox6.SuspendLayout();
+			this.ClientSaveBox.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.ClientDataGrid)).BeginInit();
 			this.tabPage2.SuspendLayout();
-			this.groupBox5.SuspendLayout();
+			this.SotrSaveBox.SuspendLayout();
 			this.groupBox4.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.SotrDataGrid)).BeginInit();
 			this.tabPage1.SuspendLayout();
@@ -95,13 +98,13 @@
 			this.groupBox1.SuspendLayout();
 			this.tabControl1.SuspendLayout();
 			this.tabPage4.SuspendLayout();
-			this.groupBox3.SuspendLayout();
+			this.TypeBox.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.TypeDataGrid)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// tabPage3
 			// 
-			this.tabPage3.Controls.Add(this.groupBox6);
+			this.tabPage3.Controls.Add(this.ClientSaveBox);
 			this.tabPage3.Controls.Add(this.groupBox2);
 			this.tabPage3.Controls.Add(this.ClientDataGrid);
 			this.tabPage3.Location = new System.Drawing.Point(4, 22);
@@ -112,42 +115,55 @@
 			this.tabPage3.Text = "Клиенты";
 			this.tabPage3.UseVisualStyleBackColor = true;
 			// 
-			// groupBox6
+			// ClientSaveBox
 			// 
-			this.groupBox6.Controls.Add(this.textBox8);
-			this.groupBox6.Controls.Add(this.button2);
-			this.groupBox6.Controls.Add(this.label12);
-			this.groupBox6.Controls.Add(this.label15);
-			this.groupBox6.Controls.Add(this.textBox6);
-			this.groupBox6.Controls.Add(this.label14);
-			this.groupBox6.Controls.Add(this.label13);
-			this.groupBox6.Controls.Add(this.maskedTextBox2);
-			this.groupBox6.Controls.Add(this.textBox7);
-			this.groupBox6.Location = new System.Drawing.Point(678, 86);
-			this.groupBox6.Name = "groupBox6";
-			this.groupBox6.Size = new System.Drawing.Size(270, 336);
-			this.groupBox6.TabIndex = 10;
-			this.groupBox6.TabStop = false;
-			this.groupBox6.Text = "Добавление клиента";
+			this.ClientSaveBox.Controls.Add(this.ClientCancelBut);
+			this.ClientSaveBox.Controls.Add(this.ClientINN);
+			this.ClientSaveBox.Controls.Add(this.ClientSaveBut);
+			this.ClientSaveBox.Controls.Add(this.label12);
+			this.ClientSaveBox.Controls.Add(this.label15);
+			this.ClientSaveBox.Controls.Add(this.ClientEmail);
+			this.ClientSaveBox.Controls.Add(this.label14);
+			this.ClientSaveBox.Controls.Add(this.label13);
+			this.ClientSaveBox.Controls.Add(this.ClientPhone);
+			this.ClientSaveBox.Controls.Add(this.ClientFio);
+			this.ClientSaveBox.Location = new System.Drawing.Point(678, 86);
+			this.ClientSaveBox.Name = "ClientSaveBox";
+			this.ClientSaveBox.Size = new System.Drawing.Size(270, 336);
+			this.ClientSaveBox.TabIndex = 10;
+			this.ClientSaveBox.TabStop = false;
+			this.ClientSaveBox.Text = "Добавление клиента";
 			// 
-			// textBox8
+			// ClientCancelBut
 			// 
-			this.textBox8.Location = new System.Drawing.Point(6, 120);
-			this.textBox8.Name = "textBox8";
-			this.textBox8.Size = new System.Drawing.Size(241, 20);
-			this.textBox8.TabIndex = 15;
+			this.ClientCancelBut.Location = new System.Drawing.Point(6, 275);
+			this.ClientCancelBut.Name = "ClientCancelBut";
+			this.ClientCancelBut.Size = new System.Drawing.Size(75, 55);
+			this.ClientCancelBut.TabIndex = 20;
+			this.ClientCancelBut.Text = "Отмена";
+			this.ClientCancelBut.UseVisualStyleBackColor = true;
+			this.ClientCancelBut.Visible = false;
+			this.ClientCancelBut.Click += new System.EventHandler(this.ClientClear);
 			// 
-			// button2
+			// ClientINN
 			// 
-			this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(153)))));
-			this.button2.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-			this.button2.Location = new System.Drawing.Point(58, 275);
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(162, 55);
-			this.button2.TabIndex = 7;
-			this.button2.Text = "Добавить клиента";
-			this.button2.UseVisualStyleBackColor = false;
+			this.ClientINN.Location = new System.Drawing.Point(6, 120);
+			this.ClientINN.Name = "ClientINN";
+			this.ClientINN.Size = new System.Drawing.Size(258, 20);
+			this.ClientINN.TabIndex = 15;
+			// 
+			// ClientSaveBut
+			// 
+			this.ClientSaveBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(153)))));
+			this.ClientSaveBut.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.ClientSaveBut.ForeColor = System.Drawing.SystemColors.ButtonFace;
+			this.ClientSaveBut.Location = new System.Drawing.Point(102, 275);
+			this.ClientSaveBut.Name = "ClientSaveBut";
+			this.ClientSaveBut.Size = new System.Drawing.Size(162, 55);
+			this.ClientSaveBut.TabIndex = 7;
+			this.ClientSaveBut.Text = "Добавить клиента";
+			this.ClientSaveBut.UseVisualStyleBackColor = false;
+			this.ClientSaveBut.Click += new System.EventHandler(this.ClientSave);
 			// 
 			// label12
 			// 
@@ -169,12 +185,12 @@
 			this.label15.TabIndex = 16;
 			this.label15.Text = "ФИО";
 			// 
-			// textBox6
+			// ClientEmail
 			// 
-			this.textBox6.Location = new System.Drawing.Point(106, 183);
-			this.textBox6.Name = "textBox6";
-			this.textBox6.Size = new System.Drawing.Size(141, 20);
-			this.textBox6.TabIndex = 14;
+			this.ClientEmail.Location = new System.Drawing.Point(106, 183);
+			this.ClientEmail.Name = "ClientEmail";
+			this.ClientEmail.Size = new System.Drawing.Size(158, 20);
+			this.ClientEmail.TabIndex = 14;
 			// 
 			// label14
 			// 
@@ -196,20 +212,20 @@
 			this.label13.TabIndex = 19;
 			this.label13.Text = "ИНН";
 			// 
-			// maskedTextBox2
+			// ClientPhone
 			// 
-			this.maskedTextBox2.Location = new System.Drawing.Point(6, 183);
-			this.maskedTextBox2.Mask = "000-00-0000";
-			this.maskedTextBox2.Name = "maskedTextBox2";
-			this.maskedTextBox2.Size = new System.Drawing.Size(87, 20);
-			this.maskedTextBox2.TabIndex = 13;
+			this.ClientPhone.Location = new System.Drawing.Point(6, 183);
+			this.ClientPhone.Mask = "000-00-0000";
+			this.ClientPhone.Name = "ClientPhone";
+			this.ClientPhone.Size = new System.Drawing.Size(87, 20);
+			this.ClientPhone.TabIndex = 13;
 			// 
-			// textBox7
+			// ClientFio
 			// 
-			this.textBox7.Location = new System.Drawing.Point(6, 61);
-			this.textBox7.Name = "textBox7";
-			this.textBox7.Size = new System.Drawing.Size(241, 20);
-			this.textBox7.TabIndex = 12;
+			this.ClientFio.Location = new System.Drawing.Point(6, 61);
+			this.ClientFio.Name = "ClientFio";
+			this.ClientFio.Size = new System.Drawing.Size(258, 20);
+			this.ClientFio.TabIndex = 12;
 			// 
 			// groupBox2
 			// 
@@ -243,7 +259,7 @@
 			// 
 			// tabPage2
 			// 
-			this.tabPage2.Controls.Add(this.groupBox5);
+			this.tabPage2.Controls.Add(this.SotrSaveBox);
 			this.tabPage2.Controls.Add(this.SotrDataGrid);
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
 			this.tabPage2.Name = "tabPage2";
@@ -253,23 +269,35 @@
 			this.tabPage2.Text = "Сотрудники";
 			this.tabPage2.UseVisualStyleBackColor = true;
 			// 
-			// groupBox5
+			// SotrSaveBox
 			// 
-			this.groupBox5.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-			this.groupBox5.Controls.Add(this.groupBox4);
-			this.groupBox5.Controls.Add(this.SotrudnikAddBut);
-			this.groupBox5.Controls.Add(this.SotrDoljnost);
-			this.groupBox5.Controls.Add(this.SotrFio);
-			this.groupBox5.Controls.Add(this.label21);
-			this.groupBox5.Controls.Add(this.label19);
-			this.groupBox5.Controls.Add(this.SotrPhone);
-			this.groupBox5.Controls.Add(this.label20);
-			this.groupBox5.Location = new System.Drawing.Point(678, 6);
-			this.groupBox5.Name = "groupBox5";
-			this.groupBox5.Size = new System.Drawing.Size(281, 419);
-			this.groupBox5.TabIndex = 30;
-			this.groupBox5.TabStop = false;
-			this.groupBox5.Text = "Добавление сотрудника";
+			this.SotrSaveBox.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+			this.SotrSaveBox.Controls.Add(this.SotrCancelBut);
+			this.SotrSaveBox.Controls.Add(this.groupBox4);
+			this.SotrSaveBox.Controls.Add(this.SotrudnikSaveBut);
+			this.SotrSaveBox.Controls.Add(this.SotrDoljnost);
+			this.SotrSaveBox.Controls.Add(this.SotrFio);
+			this.SotrSaveBox.Controls.Add(this.label21);
+			this.SotrSaveBox.Controls.Add(this.label19);
+			this.SotrSaveBox.Controls.Add(this.SotrPhone);
+			this.SotrSaveBox.Controls.Add(this.label20);
+			this.SotrSaveBox.Location = new System.Drawing.Point(678, 6);
+			this.SotrSaveBox.Name = "SotrSaveBox";
+			this.SotrSaveBox.Size = new System.Drawing.Size(281, 419);
+			this.SotrSaveBox.TabIndex = 30;
+			this.SotrSaveBox.TabStop = false;
+			this.SotrSaveBox.Text = "Добавление сотрудника";
+			// 
+			// SotrCancelBut
+			// 
+			this.SotrCancelBut.Location = new System.Drawing.Point(16, 342);
+			this.SotrCancelBut.Name = "SotrCancelBut";
+			this.SotrCancelBut.Size = new System.Drawing.Size(75, 55);
+			this.SotrCancelBut.TabIndex = 23;
+			this.SotrCancelBut.Text = "Отмена";
+			this.SotrCancelBut.UseVisualStyleBackColor = true;
+			this.SotrCancelBut.Visible = false;
+			this.SotrCancelBut.Click += new System.EventHandler(this.SotrClear);
 			// 
 			// groupBox4
 			// 
@@ -316,18 +344,18 @@
 			this.SotrLogin.Size = new System.Drawing.Size(229, 20);
 			this.SotrLogin.TabIndex = 21;
 			// 
-			// SotrudnikAddBut
+			// SotrudnikSaveBut
 			// 
-			this.SotrudnikAddBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(153)))));
-			this.SotrudnikAddBut.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.SotrudnikAddBut.ForeColor = System.Drawing.SystemColors.ButtonFace;
-			this.SotrudnikAddBut.Location = new System.Drawing.Point(63, 344);
-			this.SotrudnikAddBut.Name = "SotrudnikAddBut";
-			this.SotrudnikAddBut.Size = new System.Drawing.Size(162, 55);
-			this.SotrudnikAddBut.TabIndex = 7;
-			this.SotrudnikAddBut.Text = "Добавить сотрудника";
-			this.SotrudnikAddBut.UseVisualStyleBackColor = false;
-			this.SotrudnikAddBut.Click += new System.EventHandler(this.SotrudnikAdd);
+			this.SotrudnikSaveBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(153)))));
+			this.SotrudnikSaveBut.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.SotrudnikSaveBut.ForeColor = System.Drawing.SystemColors.ButtonFace;
+			this.SotrudnikSaveBut.Location = new System.Drawing.Point(108, 342);
+			this.SotrudnikSaveBut.Name = "SotrudnikSaveBut";
+			this.SotrudnikSaveBut.Size = new System.Drawing.Size(162, 55);
+			this.SotrudnikSaveBut.TabIndex = 7;
+			this.SotrudnikSaveBut.Text = "Добавить сотрудника";
+			this.SotrudnikSaveBut.UseVisualStyleBackColor = false;
+			this.SotrudnikSaveBut.Click += new System.EventHandler(this.SotrudnikSave);
 			// 
 			// SotrDoljnost
 			// 
@@ -536,8 +564,9 @@
 			// 
 			// tabPage4
 			// 
-			this.tabPage4.Controls.Add(this.groupBox3);
-			this.tabPage4.Controls.Add(this.button6);
+			this.tabPage4.Controls.Add(this.TypeCancelBut);
+			this.tabPage4.Controls.Add(this.TypeBox);
+			this.tabPage4.Controls.Add(this.TypeSaveBut);
 			this.tabPage4.Controls.Add(this.TypeDataGrid);
 			this.tabPage4.Location = new System.Drawing.Point(4, 22);
 			this.tabPage4.Name = "tabPage4";
@@ -547,18 +576,18 @@
 			this.tabPage4.Text = "Типы ошибок";
 			this.tabPage4.UseVisualStyleBackColor = true;
 			// 
-			// groupBox3
+			// TypeBox
 			// 
-			this.groupBox3.Controls.Add(this.textBox3);
-			this.groupBox3.Controls.Add(this.label4);
-			this.groupBox3.Controls.Add(this.label6);
-			this.groupBox3.Controls.Add(this.textBox4);
-			this.groupBox3.Location = new System.Drawing.Point(648, 15);
-			this.groupBox3.Name = "groupBox3";
-			this.groupBox3.Size = new System.Drawing.Size(300, 191);
-			this.groupBox3.TabIndex = 12;
-			this.groupBox3.TabStop = false;
-			this.groupBox3.Text = "Добавить тип ошибки";
+			this.TypeBox.Controls.Add(this.textBox3);
+			this.TypeBox.Controls.Add(this.label4);
+			this.TypeBox.Controls.Add(this.label6);
+			this.TypeBox.Controls.Add(this.TypeName);
+			this.TypeBox.Location = new System.Drawing.Point(648, 15);
+			this.TypeBox.Name = "TypeBox";
+			this.TypeBox.Size = new System.Drawing.Size(300, 191);
+			this.TypeBox.TabIndex = 12;
+			this.TypeBox.TabStop = false;
+			this.TypeBox.Text = "Добавление типа ошибки";
 			// 
 			// textBox3
 			// 
@@ -588,23 +617,24 @@
 			this.label6.TabIndex = 23;
 			this.label6.Text = "Описание";
 			// 
-			// textBox4
+			// TypeName
 			// 
-			this.textBox4.Location = new System.Drawing.Point(15, 40);
-			this.textBox4.Name = "textBox4";
-			this.textBox4.Size = new System.Drawing.Size(279, 20);
-			this.textBox4.TabIndex = 20;
+			this.TypeName.Location = new System.Drawing.Point(15, 40);
+			this.TypeName.Name = "TypeName";
+			this.TypeName.Size = new System.Drawing.Size(279, 20);
+			this.TypeName.TabIndex = 20;
 			// 
-			// button6
+			// TypeSaveBut
 			// 
-			this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(153)))));
-			this.button6.ForeColor = System.Drawing.SystemColors.ButtonFace;
-			this.button6.Location = new System.Drawing.Point(748, 212);
-			this.button6.Name = "button6";
-			this.button6.Size = new System.Drawing.Size(94, 42);
-			this.button6.TabIndex = 11;
-			this.button6.Text = "Добавить";
-			this.button6.UseVisualStyleBackColor = false;
+			this.TypeSaveBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(102)))), ((int)(((byte)(153)))));
+			this.TypeSaveBut.ForeColor = System.Drawing.SystemColors.ButtonFace;
+			this.TypeSaveBut.Location = new System.Drawing.Point(848, 212);
+			this.TypeSaveBut.Name = "TypeSaveBut";
+			this.TypeSaveBut.Size = new System.Drawing.Size(94, 42);
+			this.TypeSaveBut.TabIndex = 11;
+			this.TypeSaveBut.Text = "Добавить";
+			this.TypeSaveBut.UseVisualStyleBackColor = false;
+			this.TypeSaveBut.Click += new System.EventHandler(this.TypeSave);
 			// 
 			// TypeDataGrid
 			// 
@@ -652,6 +682,17 @@
 			this.textBox2.Size = new System.Drawing.Size(299, 96);
 			this.textBox2.TabIndex = 8;
 			// 
+			// TypeCancelBut
+			// 
+			this.TypeCancelBut.Location = new System.Drawing.Point(663, 212);
+			this.TypeCancelBut.Name = "TypeCancelBut";
+			this.TypeCancelBut.Size = new System.Drawing.Size(80, 41);
+			this.TypeCancelBut.TabIndex = 13;
+			this.TypeCancelBut.Text = "Отмена";
+			this.TypeCancelBut.UseVisualStyleBackColor = true;
+			this.TypeCancelBut.Visible = false;
+			this.TypeCancelBut.Click += new System.EventHandler(this.TypeClear);
+			// 
 			// main
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -662,14 +703,14 @@
 			this.Name = "main";
 			this.Text = "Главное окно";
 			this.tabPage3.ResumeLayout(false);
-			this.groupBox6.ResumeLayout(false);
-			this.groupBox6.PerformLayout();
+			this.ClientSaveBox.ResumeLayout(false);
+			this.ClientSaveBox.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.ClientDataGrid)).EndInit();
 			this.tabPage2.ResumeLayout(false);
-			this.groupBox5.ResumeLayout(false);
-			this.groupBox5.PerformLayout();
+			this.SotrSaveBox.ResumeLayout(false);
+			this.SotrSaveBox.PerformLayout();
 			this.groupBox4.ResumeLayout(false);
 			this.groupBox4.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.SotrDataGrid)).EndInit();
@@ -679,8 +720,8 @@
 			this.groupBox1.PerformLayout();
 			this.tabControl1.ResumeLayout(false);
 			this.tabPage4.ResumeLayout(false);
-			this.groupBox3.ResumeLayout(false);
-			this.groupBox3.PerformLayout();
+			this.TypeBox.ResumeLayout(false);
+			this.TypeBox.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.TypeDataGrid)).EndInit();
 			this.ResumeLayout(false);
 
@@ -690,10 +731,10 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox ClientFilterTxt;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button ClientSaveBut;
         private System.Windows.Forms.DataGridView ClientDataGrid;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Button SotrudnikAddBut;
+        private System.Windows.Forms.Button SotrudnikSaveBut;
         private System.Windows.Forms.DataGridView SotrDataGrid;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.DataGridView ZayavDataGrid;
@@ -708,12 +749,12 @@
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox ClientEmail;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox2;
+        private System.Windows.Forms.TextBox ClientFio;
+        private System.Windows.Forms.MaskedTextBox ClientPhone;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.TextBox ClientINN;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TextBox SotrPass;
@@ -726,20 +767,23 @@
         private System.Windows.Forms.TextBox SotrFio;
         private System.Windows.Forms.ComboBox SotrDoljnost;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox SotrSaveBox;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.GroupBox ClientSaveBox;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox TypeBox;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.TextBox TypeName;
+        private System.Windows.Forms.Button TypeSaveBut;
         private System.Windows.Forms.DataGridView TypeDataGrid;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.TextBox textBox2;
-    }
+		private System.Windows.Forms.Button SotrCancelBut;
+		private System.Windows.Forms.Button ClientCancelBut;
+		private System.Windows.Forms.Button TypeCancelBut;
+	}
 }
