@@ -233,7 +233,7 @@ namespace May.MAINWIn
 		{
 			var add = new addzaiavka();
 			add.ShowDialog();
-			FilterClear();
+			ZayavSpisokShow();
 		}
 
 		#endregion
