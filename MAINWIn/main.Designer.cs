@@ -73,6 +73,7 @@
 			this.buttonAdd = new System.Windows.Forms.Button();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
+			this.TypeCancelBut = new System.Windows.Forms.Button();
 			this.TypeBox = new System.Windows.Forms.GroupBox();
 			this.textBox3 = new System.Windows.Forms.TextBox();
 			this.label4 = new System.Windows.Forms.Label();
@@ -84,7 +85,6 @@
 			this.label7 = new System.Windows.Forms.Label();
 			this.textBox5 = new System.Windows.Forms.TextBox();
 			this.textBox2 = new System.Windows.Forms.TextBox();
-			this.TypeCancelBut = new System.Windows.Forms.Button();
 			this.tabPage3.SuspendLayout();
 			this.ClientSaveBox.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -529,6 +529,7 @@
 			this.FilterDateTo.Name = "FilterDateTo";
 			this.FilterDateTo.Size = new System.Drawing.Size(133, 20);
 			this.FilterDateTo.TabIndex = 10;
+			this.FilterDateTo.ValueChanged += new System.EventHandler(this.FilterDateToChanged);
 			// 
 			// FilterDateFrom
 			// 
@@ -537,6 +538,7 @@
 			this.FilterDateFrom.Name = "FilterDateFrom";
 			this.FilterDateFrom.Size = new System.Drawing.Size(140, 20);
 			this.FilterDateFrom.TabIndex = 9;
+			this.FilterDateFrom.ValueChanged += new System.EventHandler(this.FilterDateFromChanged);
 			// 
 			// buttonAdd
 			// 
@@ -575,6 +577,17 @@
 			this.tabPage4.TabIndex = 3;
 			this.tabPage4.Text = "Типы ошибок";
 			this.tabPage4.UseVisualStyleBackColor = true;
+			// 
+			// TypeCancelBut
+			// 
+			this.TypeCancelBut.Location = new System.Drawing.Point(663, 212);
+			this.TypeCancelBut.Name = "TypeCancelBut";
+			this.TypeCancelBut.Size = new System.Drawing.Size(80, 41);
+			this.TypeCancelBut.TabIndex = 13;
+			this.TypeCancelBut.Text = "Отмена";
+			this.TypeCancelBut.UseVisualStyleBackColor = true;
+			this.TypeCancelBut.Visible = false;
+			this.TypeCancelBut.Click += new System.EventHandler(this.TypeClear);
 			// 
 			// TypeBox
 			// 
@@ -681,17 +694,6 @@
 			this.textBox2.Name = "textBox2";
 			this.textBox2.Size = new System.Drawing.Size(299, 96);
 			this.textBox2.TabIndex = 8;
-			// 
-			// TypeCancelBut
-			// 
-			this.TypeCancelBut.Location = new System.Drawing.Point(663, 212);
-			this.TypeCancelBut.Name = "TypeCancelBut";
-			this.TypeCancelBut.Size = new System.Drawing.Size(80, 41);
-			this.TypeCancelBut.TabIndex = 13;
-			this.TypeCancelBut.Text = "Отмена";
-			this.TypeCancelBut.UseVisualStyleBackColor = true;
-			this.TypeCancelBut.Visible = false;
-			this.TypeCancelBut.Click += new System.EventHandler(this.TypeClear);
 			// 
 			// main
 			// 

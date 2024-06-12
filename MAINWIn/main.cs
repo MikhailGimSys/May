@@ -8,8 +8,7 @@ using System.Windows.Forms;
 using System.Data.Entity.Migrations;
 
 using May.MAINWIn.addwin;
-//using Microsoft.Office.Interop.Word;
-//using Word = Microsoft.Office.Interop.Word;
+using TemplateEngine.Docx;
 
 namespace May.MAINWIn
 {
@@ -123,6 +122,12 @@ namespace May.MAINWIn
 				if (!Filter.Check(item))
 					continue;
 
+				//var treeIcon = new Icon(GetType(), "Resources/word20.ico");
+				//var iconColumn = new DataGridViewImageColumn();
+				//iconColumn.Image = treeIcon.ToBitmap();
+				//iconColumn.Name = "Tree";
+				//iconColumn.HeaderText = "Nice tree";
+
 				int i = ZayavDataGrid.Rows.Add (
 					item.id,
 					item.datedob,
@@ -131,6 +136,7 @@ namespace May.MAINWIn
 					item.StatusZaiavka.name,
 					item.Sotrudnik.fio,
 					item.opisanie,
+					//iconColumn,
 					item.StatusZaiavka.id == 3 ? "Word" : "",
 					"Изменить",
 					"Удалить");
@@ -176,16 +182,28 @@ namespace May.MAINWIn
 			{
 				// Вывод Акта в формате Ворд
 				case "Word":
-					// Файл-щаблон
+					// Исходный файл-щаблон
 					var tmpFile = $"{Environment.CurrentDirectory}\\Resources\\act.tmp.docx";
-					//Console.WriteLine(tmpFile);
-					//var word = new Word.Application();
-					//_Document doc = word.Documents.Add(tmpFile);
-					//doc.Bookmarks["{NOMER}"].Range.Text = "123";
-					//doc.SaveAs(@"Resources\act.docx");
-					//doc.Close();
+					var outFile = $"{Environment.CurrentDirectory}\\Resources\\act.docx";
 
-					Process.Start(tmpFile);
+					if (File.Exists(outFile))
+						File.Delete(outFile);
+					
+					File.Copy(tmpFile, outFile);
+
+
+
+					var valuesToFill = new Content(
+						new FieldContent("nomer", zayav.id.ToString()),
+						new FieldContent("date", zayav.datedob.ToString().Split(' ')[0]),
+						new FieldContent("fio", zayav.Client.fio)
+					);
+
+					var outDoc = new TemplateProcessor(outFile).SetRemoveContentControls(true);
+					outDoc.FillContent(valuesToFill);
+					outDoc.SaveChanges();
+
+					Process.Start(outFile);
 					break;
 
 				// Редактирование данных заявки
@@ -254,17 +272,7 @@ namespace May.MAINWIn
 			FilterStatus.DisplayMember = "Name";
 			FilterStatus.ValueMember = "id";
 
-
-			var MinDate = dipl.ZaiavkaNeispravnost.Min(x => x.datedob.Value);
-			var MaxDate = dipl.ZaiavkaNeispravnost.Max(x => x.datedob.Value);
-
-			FilterDateFrom.MinDate = MinDate;
-			FilterDateFrom.MaxDate = MaxDate;
-			FilterDateFrom.Value = MinDate;
-
-			FilterDateTo.MinDate = MinDate;
-			FilterDateTo.MaxDate = MaxDate;
-			FilterDateTo.Value = MaxDate;
+			FilterClear();
 		}
 
 		// Ввод текста в фильтре "Поиск заявок по ФИО клиента"
@@ -283,11 +291,34 @@ namespace May.MAINWIn
 			ZayavSpisokShow();
 		}
 
+		// Изменение фильтра "Дата от"
+		private void FilterDateFromChanged(object sender, EventArgs e)
+		{
+			Filter.dateFrom = FilterDateFrom.Value;
+			ZayavSpisokShow();
+		}
+
+		// Изменение фильтра "Дата до"
+		private void FilterDateToChanged(object sender, EventArgs e)
+		{
+			Filter.dateTo = FilterDateTo.Value;
+			ZayavSpisokShow();
+		}
+
 		// Очистка значений фильтра в полях и в классе
 		private void FilterClear()
 		{
 			FilterFio.Text = "";
 			FilterStatus.SelectedIndex = 0;
+
+			// Установка значений в датах от и до
+			FilterDateFrom.MinDate = Filter.dateFrom;
+			FilterDateFrom.MaxDate = Filter.dateTo;
+			FilterDateFrom.Value   = Filter.dateFrom;
+
+			FilterDateTo.MinDate = Filter.dateFrom;
+			FilterDateTo.MaxDate = Filter.dateTo;
+			FilterDateTo.Value   = Filter.dateTo;
 
 			new Filter();
 		}
@@ -301,6 +332,10 @@ namespace May.MAINWIn
 				fio = "";
 				status = 0;
 
+				var dipl = new DIPLEntities2();
+				dateFrom = dipl.ZaiavkaNeispravnost.Min(x => x.datedob.Value);
+				dateTo = dipl.ZaiavkaNeispravnost.Max(x => x.datedob.Value);
+
 				clientTxt = "";
 			}
 
@@ -310,6 +345,8 @@ namespace May.MAINWIn
 				if(!CheckFio(item))
 					return false;
 				if(!CheckStatus(item))
+					return false;
+				if(!CheckDate(item))
 					return false;
 
 				return true;
@@ -338,15 +375,25 @@ namespace May.MAINWIn
 
 				return status == item.StatusZaiavka.id;
 			}
+			// Проверка по статусу
+			static bool CheckDate(ZaiavkaNeispravnost item)
+			{
+				if (item.datedob >= dateFrom)
+					if (item.datedob <= dateTo)
+						return true;
+
+				return false;
+			}
 
 			public static string fio { get; set; } // Фио клиента, сотрудника, ID заявки
 			public static int status { get; set; } // Статус
+			public static DateTime dateFrom { get; set; }	// Дата внесения заявки ОТ
+			public static DateTime dateTo { get; set; }		// Дата внесения заявки ДО
 
 
 
 
-
-			// СПИСОК КЛИЕНТОВ
+			// ФИЛЬТР ДЛЯ СПИСКА КЛИЕНТОВ
 			public static string clientTxt { get; set; } // поиск по Фио, ИНН, номеру телефона, емаилу
 		}
 
